@@ -23,6 +23,8 @@ public class playerHealth : MonoBehaviour
         healthBar.SetMaxHealth(MaxHealth);
         sounds = GetComponent<AudioSource>();
 
+        StartCoroutine(WaitTime());
+
     }
     void Awake()
     {
@@ -39,10 +41,21 @@ public class playerHealth : MonoBehaviour
         if (phealth <=0)
         {
             sounds.PlayOneShot(sound, 1);
+            gameObject.GetComponent<SpriteRenderer>().enabled = false;
+            //gameObject.GetComponent<CapsuleCollider2D> ().enabled = false;
 
-            Destroy(gameObject, 1f);
+            WaitTime();
 
-            SceneManager.LoadScene(LoadScn);
         }
+    }
+
+    IEnumerator WaitTime()
+    {
+
+        yield return new WaitForSeconds(7f);
+        Destroy(gameObject);
+
+
+        SceneManager.LoadScene(LoadScn);
     }
 }
