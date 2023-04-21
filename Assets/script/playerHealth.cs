@@ -12,7 +12,8 @@ public class playerHealth : MonoBehaviour
 
     public Vector3 starpos;
     public string LoadScn;
-
+    public AudioSource sounds;
+    public AudioClip sound;
 
 
     // Start is called before the first frame update
@@ -20,7 +21,8 @@ public class playerHealth : MonoBehaviour
     {
         phealth = MaxHealth;
         healthBar.SetMaxHealth(MaxHealth);
-        
+        sounds = GetComponent<AudioSource>();
+
     }
     void Awake()
     {
@@ -36,7 +38,10 @@ public class playerHealth : MonoBehaviour
 
         if (phealth <=0)
         {
-            Destroy(gameObject);
+            sounds.PlayOneShot(sound, 1);
+
+            Destroy(gameObject, 1f);
+
             SceneManager.LoadScene(LoadScn);
         }
     }
